@@ -1,125 +1,207 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(RecipeApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  // This widget is the root of your application.
+class RecipeApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Recipe App',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+        primaryColor: Colors.blue,
+        hintColor: Colors.orange,
+        backgroundColor: Colors.black,
+        scaffoldBackgroundColor: Colors.black,
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.blue,
+        ),
+        textTheme: TextTheme(
+          headline6: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.white, fontFamily: 'Comfortaa'), // Set Comfortaa font for headline6
+          bodyText1: TextStyle(fontSize: 16.0, color: Colors.white, fontFamily: 'Comfortaa'), // Set Comfortaa font for bodyText1
+          bodyText2: TextStyle(fontSize: 14.0, color: Colors.white, fontFamily: 'Comfortaa'), // Set Comfortaa font for bodyText2
+        ),
       ),
-      home: const MyHomePage(title: 'Recipe App'),
+      home: RecipeHome(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
+class RecipeHome extends StatelessWidget {
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Recipes',
+          style: Theme.of(context).textTheme.headline6!.copyWith(color: Colors.white),
+        ),
+      ),
+      body: RecipeList(),
+    );
+  }
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+class RecipeList extends StatelessWidget {
+  final List<Recipe> recipes = [
+    Recipe(
+      name: 'Spaghetti Carbonara',
+      ingredients: ['Spaghetti', 'Eggs', 'Bacon', 'Parmesan cheese', 'Black pepper'],
+      instructions: [
+        'Cook spaghetti according to package instructions.',
+        'Fry bacon until crispy, then chop into small pieces.',
+        'In a bowl, mix eggs, grated Parmesan cheese, and black pepper.',
+        'Add cooked spaghetti to the bacon pan, then pour the egg mixture over it, stirring quickly to coat.',
+        'Serve immediately with extra Parmesan cheese and black pepper.'
+      ],
+      imagePath: 'assets/images/placeholder1.jpg',
+    ),
+    Recipe(
+      name: 'Chicken Alfredo',
+      ingredients: ['Fettuccine pasta', 'Chicken breast', 'Heavy cream', 'Garlic', 'Parmesan cheese'],
+      instructions: [
+        'Cook fettuccine pasta according to package instructions.',
+        'In a pan, cook chicken breast until no longer pink, then remove and slice.',
+        'In the same pan, add minced garlic and cook until fragrant.',
+        'Pour in heavy cream and simmer until slightly thickened.',
+        'Add cooked pasta and sliced chicken to the sauce, then toss to combine.',
+        'Serve hot with grated Parmesan cheese on top.'
+      ],
+      imagePath: 'assets/images/placeholder2.jpg',
+    ),
+    Recipe(
+  name: 'Beef Stroganoff',
+  ingredients: ['Beef sirloin', 'Onion', 'Mushrooms', 'Sour cream', 'Dijon mustard'],
+  instructions: [
+    'Slice beef sirloin into thin strips.',
+    'Sauté onion and mushrooms until softened.',
+    'Add beef strips and cook until browned.',
+    'Stir in sour cream and Dijon mustard, then simmer until heated through.',
+    'Serve hot over cooked noodles or rice.'
+  ],
+  imagePath: 'assets/images/placeholder3.jpg', // Placeholder image path for Beef Stroganoff
+),
+Recipe(
+  name: 'Margherita Pizza',
+  ingredients: ['Pizza dough', 'Tomatoes', 'Fresh mozzarella cheese', 'Fresh basil leaves', 'Olive oil'],
+  instructions: [
+    'Roll out pizza dough into a round shape.',
+    'Spread olive oil over the dough, then add sliced tomatoes and fresh mozzarella cheese on top.',
+    'Bake in a preheated oven until crust is golden brown and cheese is melted.',
+    'Remove from oven, sprinkle fresh basil leaves on top, and serve hot.'
+  ],
+  imagePath: 'assets/images/placeholder4.jpg', // Placeholder image path for Margherita Pizza
+),
+Recipe(
+  name: 'Chocolate Chip Cookies',
+  ingredients: ['All-purpose flour', 'Butter', 'Brown sugar', 'Granulated sugar', 'Chocolate chips'],
+  instructions: [
+    'Cream together butter, brown sugar, and granulated sugar until smooth.',
+    'Mix in flour until a dough forms, then fold in chocolate chips.',
+    'Drop spoonfuls of dough onto a baking sheet and bake in a preheated oven until edges are golden brown.',
+    'Let cool on the baking sheet for a few minutes before transferring to a wire rack to cool completely.'
+  ],
+  imagePath: 'assets/images/placeholder5.jpg', // Placeholder image path for Chocolate Chip Cookies
+),
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
+    // Add more recipes here
+  ];
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+    return ListView.builder(
+      itemCount: recipes.length,
+      itemBuilder: (context, index) {
+        return ListTile(
+          leading: CircleAvatar(
+            backgroundImage: AssetImage(recipes[index].imagePath),
+            radius: 25,
+          ),
+          title: Text(
+            recipes[index].name,
+            style: TextStyle(color: Colors.white), // Set text color to white
+          ),
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => RecipeDetails(recipe: recipes[index])),
+            );
+          },
+        );
+      },
     );
   }
 }
+
+class RecipeDetails extends StatelessWidget {
+  final Recipe recipe;
+
+  RecipeDetails({required this.recipe});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(recipe.name),
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Image.asset(
+            recipe.imagePath,
+            width: MediaQuery.of(context).size.width,
+            height: 200,
+            fit: BoxFit.cover,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Ingredients:',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(height: 8),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: recipe.ingredients.map((ingredient) {
+                    return Text('- $ingredient');
+                  }).toList(),
+                ),
+                SizedBox(height: 16),
+                Text(
+                  'Instructions:',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(height: 8),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: recipe.instructions.asMap().entries.map((entry) {
+                    return Text('${entry.key + 1}. ${entry.value}');
+                  }).toList(),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class Recipe {
+  final String name;
+  final List<String> ingredients;
+  final List<String> instructions;
+  final String imagePath; // Add this field
+
+  Recipe({
+    required this.name,
+    required this.ingredients,
+    required this.instructions,
+    required this.imagePath, // Initialize this field in constructor
+  });
+}
+
